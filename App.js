@@ -1,28 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, View } from 'react-native';
-import HomeScreen from './src/screens/HomeScreen';
-import RestaurantDetailsScreen from './src/screens/RestaurantDetailsScreen';
-
+import React from 'react';
+import { store } from "./app/redux/store";
+import { Provider } from "react-redux";
+import AppNavigator from './app/navigation/AppNavigator'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-     
-      <RestaurantDetailsScreen />
-      {/* <HomeScreen/> */}
-      
-      <StatusBar style="light" />
-    </View>
+    <Provider store={store}>
+      <AppNavigator />
+    </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-
-  }
-})
-
