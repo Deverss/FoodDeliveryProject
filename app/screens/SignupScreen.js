@@ -3,6 +3,7 @@ import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import AppForm from "../components/forms/AppForm";
 import Screen from "../components/Screen";
 import colors from "../configs/colors";
+import { createUserWithEmailAndPassword, updateProfile  } from 'firebase/auth'
 import * as yup from "yup";
 import AppFormFeilds from "../components/forms/AppFormFeilds";
 import AppSubmitButton from "../components/forms/AppSubmitButton";
@@ -26,18 +27,19 @@ const ValidationSchema = yup.object().shape({
 });
 
 function SignupScreen({ navigation }) {
-
   const signUpUser = ({ name, email, password }) => {
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((result) => {
-        result.user
-          .updateProfile({ displayName: name })
+    console.log(auth);
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+          updateProfile(user,{ displayName: name })
           .then(() => {
             // User account created & signed in!
           })
           .catch((err) => {
+            console.log(err.message);
             Alert.alert("Error", err.message)
+
           });
       })
       .catch((error) => {

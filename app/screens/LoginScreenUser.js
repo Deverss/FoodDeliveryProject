@@ -1,6 +1,7 @@
 import React from "react";
 import { Alert, Image, StyleSheet, Text, View } from "react-native";
 import AppForm from "../components/forms/AppForm";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import Screen from "../components/Screen";
 import colors from "../configs/colors";
 import * as yup from "yup";
@@ -23,8 +24,8 @@ const loginValidationSchema = yup.object().shape({
 function LoginScreenUser({ navigation }) {
 
   const LoginUser = ({ email, password }) => {
-    auth
-      .signInWithEmailAndPassword(email, password)
+    
+      signInWithEmailAndPassword(auth,email, password)
       .catch((error) => {
         if (error.code === "auth/invalid-password") {
           Alert.alert("Error", "Invalid password!")

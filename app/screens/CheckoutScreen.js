@@ -22,7 +22,7 @@ const CheckoutScreen = () => {
   const [paymentSheetEnabled, setPaymentSheetEnabled] = useState(false);
   const [loading, setLoading] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(null);
-  const [loadingOrder, setLoadingOrder] = useState(false);
+  const [loadingOrder, setLoadingOrder] = useState(true);
   const navigation = useNavigation()
   const dispatch = useDispatch()
   const allCartItems = useSelector(selectCartItems)
@@ -78,6 +78,7 @@ const CheckoutScreen = () => {
     } finally {
       setLoading(false);
     }
+    setLoading(false)
   };
 
   const choosePaymentOption = async () => {
@@ -138,6 +139,8 @@ const CheckoutScreen = () => {
         setLoadingOrder(false)
         Alert.alert('Error', e.message)
       })
+      navigation.navigate("SuccessScreen");
+      setLoading(false);
   }
 
   return (
